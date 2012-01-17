@@ -1,13 +1,12 @@
+'''
+Docstring missing...
+'''
+
+
 class Unit(object):
 
     '''
     Docstring missing...
-
-    Usage:
-    >>> unit = Unit(image)
-    >>> unit.can_move(world, (1, 1))
-    >>> unit.can_attack(world, other)
-    >>> unit.kill()
     '''
 
     def __init__(self, image):
@@ -25,11 +24,11 @@ class Unit(object):
 
     def availaible_moves(self, world):
 
-        return (self.can_move(world, x) for x in world.coords)
+        return filter(lambda x: self.can_move(world, x), world.coords)
 
     def availaible_attacks(self, world):
 
-        return (self.can_attack(world, x) for x in world.units)
+        return filter(lambda x: self.can_attack(world, x),  world.units)
 
     def kill(self):
 
@@ -40,9 +39,6 @@ class Ground(Unit):
 
     '''
     Docstring missing...
-
-    Usage:
-    >>> ground = Ground(image)
     '''
 
     def can_move(self, world, position):

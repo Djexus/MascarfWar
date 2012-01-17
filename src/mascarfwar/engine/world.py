@@ -7,14 +7,6 @@ class World(object):
 
     '''
     Docstring missing...
-
-    Usage:
-    >>> world = World((10, 10), (5, 5))
-    >>> world.add_unit(unit, (0, 0), 'player', 'tank')
-    >>> world.move_unit(unit, (1, 1))
-    >>> world.attack_unit(unit, enemy)
-    >>> world.remove_unit(unit)
-    >>> world.cleanup()
     '''
 
     def __init__(self, mapsize, cellsize):
@@ -36,7 +28,7 @@ class World(object):
 
     def move_unit(self, unit, position):
 
-        if unit.can_move(self, position):
+        if (position in self.coords) and unit.can_move(self, position):
             pass
     
     def attack_unit(self, unit, enemy):
