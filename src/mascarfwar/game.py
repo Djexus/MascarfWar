@@ -5,7 +5,6 @@ Docstring missing...
 
 import units
 import groups
-import constants
 import utilities
 
 
@@ -15,11 +14,11 @@ class Unit(units.Unit):
     Docstring missing...
     '''
 
-    def can_move(self, world, position):
+    def can_move(self, field, position):
 
         pass
     
-    def can_attack(self, world, enemy):
+    def can_attack(self, field, enemy):
 
         pass
 
@@ -32,7 +31,7 @@ class Battle(object):
 
     def __init__(self):
 
-        self.world = engine.world.World((11, 12), (10, 10))
+        self.world = groups.Field((11, 12), (10, 10))
 
     def update(events):
 

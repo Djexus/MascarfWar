@@ -3,33 +3,6 @@ Docstring missing...
 '''
 
 
-class Group(object):
-
-    '''
-    Docstring missing...
-    '''
-
-    def __init__(self, units=[]):
-
-        self.units = set(units)
-
-    def add(self, unit):
-
-        self.units.add(unit)
-
-    def remove(self, unit):
-
-        return self.units.remove(unit)
-
-    def cleanup(self):
-
-        return [self.remove(x) for x in self.units if not x.is_alive]
-
-    def get(self, **tags):
-
-        return [x for x in self.units if all(x[k] == v for k, v in tags.items())] 
-
-
 class Unit(object):
 
     '''
@@ -49,6 +22,10 @@ class Unit(object):
     def __setitem__(self, item, value):
 
         self.tags[item] = value
+
+    def __delitem__(self, item):
+
+        self.tags.pop(item)
 
     def can_move(self, field, position):
 

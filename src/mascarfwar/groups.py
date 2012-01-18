@@ -3,6 +3,9 @@ Docstring missing...
 '''
 
 
+import collections
+
+
 class Group(object):
 
     '''
@@ -12,6 +15,14 @@ class Group(object):
     def __init__(self, units=[]):
         
         self.units = set(units)
+
+    def __contains__(self, item):
+
+        return item in self.units
+
+    def __iter__(self):
+
+        return iter(self.units)
 
     def add(self, unit):
 
@@ -27,7 +38,7 @@ class Group(object):
 
     def get(self, **tags):
         
-        return [x for x in self.units if all(x[k] == v for k, v in tags.items())] 
+        return Group([x for x in self.units if all(x[k] == v for k, v in tags.items())])
 
 
 class Field(Group):
@@ -41,8 +52,20 @@ class Field(Group):
         self.mapsize = mapsize
         self.cellsize = cellsize
         self.coords = [(x, y) for x in range(mapsize[0]) for y in range(mapsize[1])]
-        self.field = collections.defaultdict(list)
+        self.field = collections.defaultdict(Group)
         super(Field, self).__init__()
+
+    def __getitem__(self, item):
+
+        return self.field.get(item, [])
+
+    def __setitem__(self, item, value):
+
+        self.add(unit, value)
+
+    def __delitem__(self, item):
+
+        self.remove(item)
 
     def add(self, unit, position):
 
@@ -61,5 +84,5 @@ class Field(Group):
 
     def attack_unit(self, unit, enemy):
 
-        if (enemy in self.units) and unit.can_attack(self, enemy):
+        if (enemy in self) and unit.can_attack(self, enemy):
             pass
