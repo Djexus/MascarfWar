@@ -3,9 +3,6 @@ Docstring missing...
 '''
 
 
-import collections
-
-
 class Group(object):
 
     '''
@@ -52,30 +49,12 @@ class Field(Group):
         self.mapsize = mapsize
         self.cellsize = cellsize
         self.coords = [(x, y) for x in range(mapsize[0]) for y in range(mapsize[1])]
-        self.field = collections.defaultdict(Group)
         super(Field, self).__init__()
 
-    def __getitem__(self, item):
+    def add(self, unit):
 
-        return self.field.get(item, [])
-
-    def __setitem__(self, item, value):
-
-        self.add(unit, value)
-
-    def __delitem__(self, item):
-
-        self.remove(item)
-
-    def add(self, unit, position):
-
-        self.field[position].append(unit)
-        super(Field, self).add(unit)
-
-    def remove(self, unit):
-
-        self.field[position].pop(unit)
-        super(Field, self).remove(unit)
+        if unit['position'] in self.coords:
+            super(Field, self).add(unit)
 
     def move_unit(self, unit, position):
 
